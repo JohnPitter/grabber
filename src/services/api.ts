@@ -1,5 +1,5 @@
 const API_BASE = import.meta.env.DEV
-  ? "http://localhost:5001/media-grabber/us-east1"
+  ? "http://localhost:3001/api"
   : "/api";
 
 interface ApiResponse<T> {
@@ -66,7 +66,7 @@ class ApiClient {
   }
 
   async getVideoInfo(url: string): Promise<VideoInfo> {
-    const response = await this.request<VideoInfo>("getVideoInfo", { url });
+    const response = await this.request<VideoInfo>("video/info", { url });
     return response.data;
   }
 
@@ -74,7 +74,7 @@ class ApiClient {
     url: string,
     formatId: string,
   ): Promise<DownloadResult> {
-    const response = await this.request<DownloadResult>("downloadVideo", {
+    const response = await this.request<DownloadResult>("video/download", {
       url,
       formatId,
     });

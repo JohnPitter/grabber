@@ -3,6 +3,7 @@ import { AlertCircle } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { VideoSearch } from "@/components/VideoSearch";
 import { VideoPreview } from "@/components/VideoPreview";
+import { VideoEmbed } from "@/components/VideoEmbed";
 import { DownloadOptions } from "@/components/DownloadOptions";
 import { DownloadProgress } from "@/components/DownloadProgress";
 import { useVideoInfo } from "@/hooks/useVideoInfo";
@@ -52,6 +53,7 @@ export function App() {
 
         {videoInfo && (
           <>
+            <VideoEmbed url={currentUrl} platform={videoInfo.platform} />
             <VideoPreview video={videoInfo} />
             <DownloadOptions
               formats={videoInfo.formats}
