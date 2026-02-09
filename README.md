@@ -66,8 +66,8 @@ Media Grabber is a full-stack application for downloading public videos from You
 ## Quick Start
 
 ```bash
-git clone https://github.com/JohnPitter/media-grabber.git
-cd media-grabber
+git clone https://github.com/JohnPitter/grabber.git
+cd grabber
 
 npm install
 cd functions && npm install && cd ..

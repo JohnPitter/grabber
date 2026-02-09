@@ -91,7 +91,7 @@ export class YtDlpDownloader implements IVideoDownloader {
   }
 
   async downloadVideo(url: string, formatId: string): Promise<DownloadResult> {
-    const tempDir = path.join(os.tmpdir(), `media-grabber-${uuidv4()}`);
+    const tempDir = path.join(os.tmpdir(), `grabber-${uuidv4()}`);
     fs.mkdirSync(tempDir, { recursive: true });
 
     const outputTemplate = path.join(tempDir, "%(title)s.%(ext)s");

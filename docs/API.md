@@ -2,8 +2,8 @@
 
 ## Base URL
 
-- **Development**: `http://localhost:5001/media-grabber/us-east1`
-- **Production**: `https://us-east1-media-grabber.cloudfunctions.net`
+- **Development**: `http://localhost:5001/grabber/us-east1`
+- **Production**: `https://us-east1-grabber.cloudfunctions.net`
 
 ---
 

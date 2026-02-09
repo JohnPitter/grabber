@@ -15,8 +15,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/JohnPitter/media-grabber.git
-cd media-grabber
+git clone https://github.com/JohnPitter/grabber.git
+cd grabber
 
 # Install frontend dependencies
 npm install

@@ -1,5 +1,5 @@
 {
-  "name": "media-grabber-functions",
+  "name": "grabber-functions",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
