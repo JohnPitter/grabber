@@ -1,6 +1,6 @@
 import { CheckCircle, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import type { DownloadResult } from "@/services/api";
 
 interface DownloadProgressProps {
@@ -36,17 +36,16 @@ export function DownloadProgress({ result }: DownloadProgressProps) {
                 Link expires in {expiresIn} minutes
               </p>
             </div>
-            <Button size="sm" asChild>
-              <a
-                href={result.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download={result.fileName}
-              >
-                <ExternalLink className="mr-2 h-3 w-3" />
-                Download Again
-              </a>
-            </Button>
+            <a
+              href={result.downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              download={result.fileName}
+              className={buttonVariants({ size: "sm" })}
+            >
+              <ExternalLink className="mr-2 h-3 w-3" />
+              Download Again
+            </a>
           </div>
         </div>
       </CardContent>
