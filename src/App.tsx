@@ -6,13 +6,16 @@ import { VideoPreview } from "@/components/VideoPreview";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { DownloadOptions } from "@/components/DownloadOptions";
 import { DownloadProgress } from "@/components/DownloadProgress";
+import { DownloadHistory } from "@/components/DownloadHistory";
 import { useVideoInfo } from "@/hooks/useVideoInfo";
 import { useDownload } from "@/hooks/useDownload";
+import { useHistory } from "@/hooks/useHistory";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function App() {
   const { videoInfo, loading: infoLoading, error: infoError, fetchVideoInfo } = useVideoInfo();
   const { downloadResult, loading: downloadLoading, error: downloadError, startDownload } = useDownload();
+  const { history, addEntry, removeEntry, clearHistory } = useHistory();
   const [selectedFormatId, setSelectedFormatId] = useState<string | null>(null);
   const [currentUrl, setCurrentUrl] = useState("");
 
@@ -22,9 +25,18 @@ export function App() {
   }
 
   function handleDownload(formatId: string) {
-    if (!currentUrl) return;
+    if (!currentUrl || !videoInfo) return;
     setSelectedFormatId(formatId);
     startDownload(currentUrl, formatId);
+
+    addEntry({
+      url: currentUrl,
+      title: videoInfo.title,
+      thumbnail: videoInfo.thumbnail,
+      platform: videoInfo.platform,
+      duration: videoInfo.duration,
+      uploader: videoInfo.uploader,
+    });
   }
 
   const error = infoError || downloadError;
@@ -41,6 +53,15 @@ export function App() {
         </div>
 
         <VideoSearch onSearch={handleSearch} loading={infoLoading} />
+
+        {!videoInfo && !infoLoading && !error && (
+          <DownloadHistory
+            entries={history}
+            onSelect={handleSearch}
+            onRemove={removeEntry}
+            onClear={clearHistory}
+          />
+        )}
 
         {error && (
           <Card className="border-destructive/50 bg-destructive/5">
