@@ -214,6 +214,44 @@ app.post("/api/video/download", async (req, res) => {
   }
 });
 
+// ── GET /api/proxy-image ──────────────────────────────────────────────
+const ALLOWED_HOSTS = ["scontent", "cdninstagram.com", "instagram", "ytimg.com", "ggpht.com"];
+
+app.get("/api/proxy-image", async (req, res) => {
+  const imageUrl = req.query.url as string | undefined;
+  if (!imageUrl) {
+    res.status(400).json({ error: "Missing url param" });
+    return;
+  }
+
+  try {
+    const parsed = new URL(imageUrl);
+    const hostAllowed = ALLOWED_HOSTS.some((h) => parsed.hostname.includes(h));
+    if (!hostAllowed) {
+      res.status(403).json({ error: "Host not allowed" });
+      return;
+    }
+
+    const response = await fetch(imageUrl, {
+      headers: { "User-Agent": "Mozilla/5.0" },
+    });
+
+    if (!response.ok) {
+      res.status(response.status).end();
+      return;
+    }
+
+    const contentType = response.headers.get("content-type") || "image/jpeg";
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Cache-Control", "public, max-age=3600");
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
+  } catch {
+    res.status(500).json({ error: "Failed to fetch image" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`\n  Grabber Dev Server running at http://localhost:${PORT}`);
   console.log(`  Health check: http://localhost:${PORT}/api/health\n`);

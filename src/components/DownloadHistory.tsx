@@ -2,6 +2,7 @@ import { History, Clock, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { proxyThumbnail } from "@/lib/utils";
 import type { HistoryEntry } from "@/hooks/useHistory";
 
 interface DownloadHistoryProps {
@@ -74,7 +75,7 @@ export function DownloadHistory({
               {entry.thumbnail ? (
                 <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded">
                   <img
-                    src={entry.thumbnail}
+                    src={proxyThumbnail(entry.thumbnail)}
                     alt=""
                     className="h-full w-full object-cover"
                     loading="lazy"

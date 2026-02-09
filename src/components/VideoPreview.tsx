@@ -1,6 +1,7 @@
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { proxyThumbnail } from "@/lib/utils";
 import type { VideoInfo } from "@/services/api";
 
 interface VideoPreviewProps {
@@ -24,7 +25,7 @@ export function VideoPreview({ video }: VideoPreviewProps) {
           {video.thumbnail && (
             <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-lg sm:w-48">
               <img
-                src={video.thumbnail}
+                src={proxyThumbnail(video.thumbnail)}
                 alt={video.title}
                 className="h-full w-full object-cover"
                 loading="lazy"

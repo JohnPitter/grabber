@@ -1,6 +1,7 @@
 node_modules/
 dist/
-lib/
+/lib/
+/functions/lib/
 .env
 .env.local
 .env.*.local
